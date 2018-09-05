@@ -31,7 +31,7 @@ class App extends Component {
     });
   }
   login() {
-    auth.signInWithRedirect(provider)
+    auth.signInWithPopup(provider)
     .then((result) => {
       const user = result.user;
       this.setState({
