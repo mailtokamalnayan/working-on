@@ -15,3 +15,8 @@ button {
   font-size: 100%;
   border: 0;
 }
+
+img {
+  max-width: 64px;
+  height: auto;
+}
