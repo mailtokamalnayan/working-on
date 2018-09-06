@@ -214,7 +214,7 @@ class App extends Component {
           <LogOutBtn onClick={this.logout}>Log out <LogOut /></LogOutBtn>
           <Form onSubmit={this.handleSubmit}>
             <textarea type="text" name="currentItem" placeholder={"Hi " + this.state.user.displayName + "! What are you working on?" } onChange={this.handleChange} value={this.state.currentItem} />
-            <button><PlusCircle /> Update </button>
+            <button> Update <PlusCircle /></button>
           </Form>
           <WorkingBlocks>
             <ul>
