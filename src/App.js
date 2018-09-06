@@ -86,7 +86,10 @@ class App extends Component {
         {this.state.user ?
         <button onClick={this.logout}>Log out</button>
         :
-        <button onClick={this.login}>Log in to get started</button>  
+        <div className="logout-view">
+          <h1 className="logout-heading">Share what you’re working on and feel the pressure to continue working on</h1>
+          <button className="login-btn" onClick={this.login}>Log in to commit</button>  
+        </div> 
       }
       { this.state.user ?
       <div>
