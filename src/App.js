@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import firebase, {auth, provider } from './firebase.js';
 import { spawn } from 'child_process';
+import { PlusCircle, MinusCircle, LogOut, ArrowRightCircle } from 'react-feather';
 import styled from "styled-components";
 import Moment from 'react-moment';
 
@@ -13,6 +14,13 @@ const LogoutView = styled.div`
   padding: 1rem;
   display: grid;
   align-items: center;
+  justify-items: center;
+  background-image: url('./Planes2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  > div {
+    max-width: 640px;
+  }
 `;
 
 const LogoutHeading = styled.h1`
@@ -36,6 +44,8 @@ const LoginBtn = styled.button`
 const LoginView = styled.div`
  display: grid;
  padding: 1rem;
+ max-width: 1140px;
+ margin: 1rem auto;
 `;
 
 const LogOutBtn = styled.button`
@@ -48,8 +58,8 @@ const LogOutBtn = styled.button`
 
 const Form = styled.form`
  height: 400px;
+ margin-top: 2rem;
  textarea {
-   margin-top: 1rem;
    font-size: 36px;
    width: 100%;
    height: 300px;
@@ -86,6 +96,7 @@ const WorkingOn =  styled.li`
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-bottom: 1rem;
+  position: relative;
 `;
 
 const WorkingHead = styled.div`
@@ -106,6 +117,9 @@ const WorkingHead = styled.div`
 const Delete = styled.button`
   background: none;
   border: none;
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
 `;
 
 class App extends Component {
@@ -197,10 +211,10 @@ class App extends Component {
       <div className="App">
         {this.state.user ?
         <LoginView>
-          <LogOutBtn onClick={this.logout}>Log out</LogOutBtn>
+          <LogOutBtn onClick={this.logout}>Log out <LogOut /></LogOutBtn>
           <Form onSubmit={this.handleSubmit}>
             <textarea type="text" name="currentItem" placeholder={"Hi " + this.state.user.displayName + "! What are you working on?" } onChange={this.handleChange} value={this.state.currentItem} />
-            <button>Update</button>
+            <button><PlusCircle /> Update </button>
           </Form>
           <WorkingBlocks>
             <ul>
@@ -218,12 +232,7 @@ class App extends Component {
                     <p>{item.title}</p>
 
                     {item.user === this.state.user.displayName || item.user === this.state.user.email ?
-                    <Delete onClick={() => this.removeItem(item.id)}><svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g>
-                    <path d="M1 5H3H19" stroke="#9B51E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M6 5V3C6 2.46957 6.21071 1.96086 6.58579 1.58579C6.96086 1.21071 7.46957 1 8 1H12C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V5M17 5V19C17 19.5304 16.7893 20.0391 16.4142 20.4142C16.0391 20.7893 15.5304 21 15 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5H17Z" stroke="#9B51E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </g>
-                    </svg></Delete> : null}
+                    <Delete onClick={() => this.removeItem(item.id)}><MinusCircle color="#9B51E0"/></Delete> : null}
                   </WorkingOn>
                 )
               })}
@@ -234,7 +243,7 @@ class App extends Component {
         <LogoutView>
           <div>
           <LogoutHeading>Share what you’re working on and feel the pressure to continue working on</LogoutHeading>
-          <LoginBtn onClick={this.login}>Log in to commit</LoginBtn>
+          <LoginBtn onClick={this.login}>Log in to share <ArrowRightCircle /></LoginBtn>
           </div> 
         </LogoutView> 
       }
