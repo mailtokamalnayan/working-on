@@ -3,6 +3,7 @@ import './App.css';
 import firebase, {auth, provider } from './firebase.js';
 import { spawn } from 'child_process';
 import styled from "styled-components";
+import Moment from 'react-moment';
 
 const LogoutView = styled.div`
   background-color: #9B51E0;
@@ -41,6 +42,8 @@ const LogOutBtn = styled.button`
  font-size: 100%;
  color: #9B51E0;
  justify-self: end;
+ background: none;
+ border: none;
 `;
 
 const Form = styled.form`
@@ -48,14 +51,31 @@ const Form = styled.form`
  textarea {
    margin-top: 1rem;
    font-size: 36px;
-   font-weight: 500;
-   width: 95%;
+   width: 100%;
    height: 300px;
+   border: none;
+   padding: 1rem;
+   box-sizing: border-box;
+ }
+ button {
+   float: right;
+   font-size: 20px;
+   background-color: #9B51E0;
+   color: white;
+   border-radius: 9999px;
+   padding: 0.5rem 1rem;
+   font-weight: 600;
+   border: 0;
  }
 `;
 const WorkingBlocks = styled.div`
  ul {
    padding-left: 0;
+   @media (min-width: 768px) {
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr;
+     grid-column-gap: 1rem;
+   }
  }
 `;
 const WorkingOn =  styled.li`
@@ -75,12 +95,17 @@ const WorkingHead = styled.div`
     margin: 0;
     font-size: 100%;
   }
-  p {
+  time {
     color: rgba(0,0,0,0.5);
   }
   img {
     border-radius: 50%;
   }
+`;
+
+const Delete = styled.button`
+  background: none;
+  border: none;
 `;
 
 class App extends Component {
@@ -123,7 +148,7 @@ class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const itemsRef = firebase.database().ref('items');
-    const timeNow = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+    const timeNow = new Date().toUTCString();
     const item = {
       title: this.state.currentItem,
       user: this.state.user.displayName || this.state.user.email,
@@ -186,19 +211,19 @@ class App extends Component {
                       <img width="56px" src={item.userImage} />
                       <div>
                         <h3>{item.user}</h3>
-                        <p>{item.timeNow}</p>
+                        <Moment fromNow>{item.timeNow}</Moment>
                       </div>
                     </WorkingHead>
 
                     <p>{item.title}</p>
 
                     {item.user === this.state.user.displayName || item.user === this.state.user.email ?
-                    <button onClick={() => this.removeItem(item.id)}><svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g opacity="0.5">
+                    <Delete onClick={() => this.removeItem(item.id)}><svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g>
                     <path d="M1 5H3H19" stroke="#9B51E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M6 5V3C6 2.46957 6.21071 1.96086 6.58579 1.58579C6.96086 1.21071 7.46957 1 8 1H12C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V5M17 5V19C17 19.5304 16.7893 20.0391 16.4142 20.4142C16.0391 20.7893 15.5304 21 15 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5H17Z" stroke="#9B51E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
-                    </svg></button> : null}
+                    </svg></Delete> : null}
                   </WorkingOn>
                 )
               })}

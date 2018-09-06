@@ -7,3 +7,19 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.4;
 }
+
+.App {
+  max-width: 1140px;
+  margin: auto;
+}
+
+*:focus {
+  outline: none;
+}
+button {
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
