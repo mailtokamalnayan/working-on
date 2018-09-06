@@ -19,7 +19,8 @@ const LogoutView = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   > div {
-    max-width: 640px;
+    max-width: 900px;
+    line-height: 1.4;
   }
 `;
 
@@ -27,7 +28,8 @@ const LogoutHeading = styled.h1`
  margin: 0;
  font-size: 36px;
  @media (min-width: 768px) {
-   font-size: 48px;
+   font-size: 60px;
+   font-weight: 600;
  }
 `;
 
@@ -242,8 +244,8 @@ class App extends Component {
         :
         <LogoutView>
           <div>
-          <LogoutHeading>Share what you’re working on and feel the pressure to continue working on</LogoutHeading>
-          <LoginBtn onClick={this.login}>Log in to share <ArrowRightCircle /></LoginBtn>
+          <LogoutHeading className="animated fadeInUp">Share what you’re currently working on with your friends. And create the social pressure to continue working on...</LogoutHeading>
+          <LoginBtn className="animated fadeInUp delayed-animation" onClick={this.login}>Log in to share <ArrowRightCircle /></LoginBtn>
           </div> 
         </LogoutView> 
       }
